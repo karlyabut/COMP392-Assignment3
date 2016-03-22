@@ -1,13 +1,14 @@
 {
-  "name": "comp392-lesson9",
+  "name": "comp392-assignment3",
   "authors": [
-    "Tom Tsiliopoulos <tsiliopoulos@hotmail.com>"
+    "Tom Tsiliopoulos <tsiliopoulos@hotmail.com>",
+    "Karl Eisen Yabut"
   ],
-  "description": "COMP392 Lesson 9 for Advanced Graphics",
+  "description": "COMP392 Assignment 3 for Advanced Graphics",
   "main": "",
   "moduleType": [],
   "license": "MIT",
-  "homepage": "https://github.com/CentennialCollege/COMP392-Lesson8",
+  "homepage": "https://github.com/karlyabut/COMP392-Assignment3",
   "ignore": [
     "**/.*",
     "node_modules",

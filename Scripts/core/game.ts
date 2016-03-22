@@ -63,7 +63,7 @@ var game = (() => {
     var groundTexture: Texture;
     var groundTextureNormal: Texture;
     var clock: Clock;
-    var playerGeometry: CubeGeometry;
+    var playerGeometry: SphereGeometry;
     var playerMaterial: Physijs.Material;
     var player: Physijs.Mesh;
     var sphereGeometry: SphereGeometry;
@@ -77,10 +77,18 @@ var game = (() => {
     var directionLineMaterial: LineBasicMaterial;
     var directionLineGeometry: Geometry;
     var directionLine: Line;
-    
+
+    //walls and obstacles
+    var wallGeometry: CubeGeometry;
+    var wallMaterial: Physijs.Material;
+    var wallLeft: Physijs.Mesh;
+    var wallRight: Physijs.Mesh;
+    var obstacles: Physijs.Mesh;
+
+    // assets: lives, score, canvas, and stage
     var assets: createjs.LoadQueue;
     var manifest = [
-        {id: "land", src:"../../Assets/audio/Land.wav"}
+        { id: "land", src: "../../Assets/audio/Land.wav" }
     ];
     var canvas: HTMLElement;
     var stage: createjs.Stage;
@@ -88,14 +96,14 @@ var game = (() => {
     var livesLabel: createjs.Text;
     var score: number;
     var lives: number;
-    
+
     function preload(): void {
         assets = new createjs.LoadQueue();
         assets.installPlugin(createjs.Sound);
         assets.on("complete", init, this);
         assets.loadManifest(manifest);
     }
-    
+
     function setupCanvas(): void {
         canvas = document.getElementById("canvas");
         canvas.setAttribute("width", config.Screen.WIDTH.toString());
@@ -104,16 +112,16 @@ var game = (() => {
         stage = new createjs.Stage(canvas);
     }
 
-    function setupScoreboard(): void{
+    function setupScoreboard(): void {
         score = 0;
         lives = 5;
-        
+
         livesLabel = new createjs.Text("LIVES: " + lives, "40px Consolas", "#ffffff");
         livesLabel.x = config.Screen.WIDTH * 0.1;
         livesLabel.y = (config.Screen.HEIGHT * 0.1) * 0.3;
         stage.addChild(livesLabel);
         console.log("added lives label to stage");
-        
+
         //add score label
         scoreLabel = new createjs.Text("SCORE " + score, "40px Consolas", "#ffffff");
         scoreLabel.x = config.Screen.WIDTH * 0.8;
@@ -121,15 +129,15 @@ var game = (() => {
         stage.addChild(scoreLabel);
         console.log("added score label");
     }
-    
+
     function init() {
         // Create to HTMLElements
         blocker = document.getElementById("blocker");
         instructions = document.getElementById("instructions");
-        
+
         //set up canvas
         setupCanvas();
-        
+
         //set up scoreboard
         setupScoreboard();
 
@@ -184,7 +192,7 @@ var game = (() => {
 
         // Spot Light
         spotLight = new SpotLight(0xffffff);
-        spotLight.position.set(20, 40, -15);
+        spotLight.position.set(20, 150, 100);
         spotLight.castShadow = true;
         spotLight.intensity = 2;
         spotLight.lookAt(new Vector3(0, 0, 0));
@@ -217,7 +225,7 @@ var game = (() => {
         groundMaterial.bumpMap = groundTextureNormal;
         groundMaterial.bumpScale = 0.2;
 
-        groundGeometry = new BoxGeometry(32, 1, 32);
+        groundGeometry = new BoxGeometry(20, 1, 500);
         groundPhysicsMaterial = Physijs.createMaterial(groundMaterial, 0, 0);
         ground = new Physijs.ConvexMesh(groundGeometry, groundPhysicsMaterial, 0);
         ground.receiveShadow = true;
@@ -225,12 +233,31 @@ var game = (() => {
         scene.add(ground);
         console.log("Added Burnt Ground to scene");
 
+        //walls
+        wallGeometry = new BoxGeometry(1, 1, 500);
+        wallMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xe75d14 }), 0.4, 0);
+        wallLeft = new Physijs.ConvexMesh(wallGeometry, wallMaterial, 0);
+        wallLeft.position.set(-10, 1, 0);
+        wallLeft.receiveShadow = true;
+        wallLeft.name = "LeftWall";
+        scene.add(wallLeft);
+        console.log("Added left wall");
+
+        wallGeometry = new BoxGeometry(1, 1, 500);
+        wallMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xe75d14 }), 0.4, 0);
+        wallRight = new Physijs.ConvexMesh(wallGeometry, wallMaterial, 0);
+        wallRight.position.set(10, 1, 0);
+        wallRight.receiveShadow = true;
+        wallRight.name = "RightWall";
+        scene.add(wallRight);
+        console.log("Added left wall");
+
         // Player Object
-        playerGeometry = new BoxGeometry(2, 4, 2);
+        playerGeometry = new SphereGeometry(2, 32, 32);
         playerMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0x00ff00 }), 0.4, 0);
 
-        player = new Physijs.BoxMesh(playerGeometry, playerMaterial, 1);
-        player.position.set(0, 30, 10);
+        player = new Physijs.SphereMesh(playerGeometry, playerMaterial, 1);
+        player.position.set(0, 10, 10);
         player.receiveShadow = true;
         player.castShadow = true;
         player.name = "Player";
@@ -262,8 +289,8 @@ var game = (() => {
 
         // create parent-child relationship with camera and player
         player.add(camera);
-        camera.position.set(0, 2, 10);
-        
+        camera.position.set(0, 1, 20);
+
 
         // Sphere Object
         sphereGeometry = new SphereGeometry(2, 32, 32);
@@ -322,16 +349,16 @@ var game = (() => {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
-        
+
         livesLabel.x = config.Screen.WIDTH * 0.1;
         livesLabel.y = (config.Screen.HEIGHT * 0.1) * 0.3;
-        
+
         scoreLabel.x = config.Screen.WIDTH * 0.8;
         scoreLabel.y = (config.Screen.HEIGHT * 0.1) * 0.3;
-        
+
         canvas.style.width = '100%';
         stage.update();
-        
+
     }
 
     function addControl(controlObject: Control): void {

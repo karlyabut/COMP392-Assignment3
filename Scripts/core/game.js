@@ -70,6 +70,13 @@ var game = (function () {
     var directionLineMaterial;
     var directionLineGeometry;
     var directionLine;
+    //walls and obstacles
+    var wallGeometry;
+    var wallMaterial;
+    var wallLeft;
+    var wallRight;
+    var obstacles;
+    // assets: lives, score, canvas, and stage
     var assets;
     var manifest = [
         { id: "land", src: "../../Assets/audio/Land.wav" }
@@ -154,7 +161,7 @@ var game = (function () {
         setupCamera(); // setup the camera
         // Spot Light
         spotLight = new SpotLight(0xffffff);
-        spotLight.position.set(20, 40, -15);
+        spotLight.position.set(20, 150, 100);
         spotLight.castShadow = true;
         spotLight.intensity = 2;
         spotLight.lookAt(new Vector3(0, 0, 0));
@@ -183,18 +190,35 @@ var game = (function () {
         groundMaterial.map = groundTexture;
         groundMaterial.bumpMap = groundTextureNormal;
         groundMaterial.bumpScale = 0.2;
-        groundGeometry = new BoxGeometry(32, 1, 32);
+        groundGeometry = new BoxGeometry(20, 1, 500);
         groundPhysicsMaterial = Physijs.createMaterial(groundMaterial, 0, 0);
         ground = new Physijs.ConvexMesh(groundGeometry, groundPhysicsMaterial, 0);
         ground.receiveShadow = true;
         ground.name = "Ground";
         scene.add(ground);
         console.log("Added Burnt Ground to scene");
+        //walls
+        wallGeometry = new BoxGeometry(1, 1, 500);
+        wallMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xe75d14 }), 0.4, 0);
+        wallLeft = new Physijs.ConvexMesh(wallGeometry, wallMaterial, 0);
+        wallLeft.position.set(-10, 1, 0);
+        wallLeft.receiveShadow = true;
+        wallLeft.name = "LeftWall";
+        scene.add(wallLeft);
+        console.log("Added left wall");
+        wallGeometry = new BoxGeometry(1, 1, 500);
+        wallMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xe75d14 }), 0.4, 0);
+        wallRight = new Physijs.ConvexMesh(wallGeometry, wallMaterial, 0);
+        wallRight.position.set(10, 1, 0);
+        wallRight.receiveShadow = true;
+        wallRight.name = "RightWall";
+        scene.add(wallRight);
+        console.log("Added left wall");
         // Player Object
-        playerGeometry = new BoxGeometry(2, 4, 2);
+        playerGeometry = new SphereGeometry(2, 32, 32);
         playerMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0x00ff00 }), 0.4, 0);
-        player = new Physijs.BoxMesh(playerGeometry, playerMaterial, 1);
-        player.position.set(0, 30, 10);
+        player = new Physijs.SphereMesh(playerGeometry, playerMaterial, 1);
+        player.position.set(0, 10, 10);
         player.receiveShadow = true;
         player.castShadow = true;
         player.name = "Player";
@@ -221,7 +245,7 @@ var game = (function () {
         console.log("Added DirectionLine to the Player");
         // create parent-child relationship with camera and player
         player.add(camera);
-        camera.position.set(0, 2, 10);
+        camera.position.set(0, 1, 20);
         // Sphere Object
         sphereGeometry = new SphereGeometry(2, 32, 32);
         sphereMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0x00ff00 }), 0.4, 0);
