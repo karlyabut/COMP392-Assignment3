@@ -124,7 +124,8 @@ var game = (function () {
         setupCanvas();
         //set up scoreboard
         setupScoreboard();
-        //createjs.Sound.play("land");
+        //background sound
+        createjs.Sound.play("land");
         //check to see if pointerlock is supported
         havePointerLock = 'pointerLockElement' in document ||
             'mozPointerLockElement' in document ||
