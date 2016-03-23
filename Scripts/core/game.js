@@ -75,18 +75,19 @@ var game = (function () {
     var wallMaterial;
     var wallLeft;
     var wallRight;
-    var obstacles;
+    var obstacle;
     // assets: lives, score, canvas, and stage
     var assets;
     var manifest = [
-        { id: "land", src: "../../Assets/audio/Land.wav" }
+        { id: "land", src: "../../Assets/audio/music.mp3" },
+        { id: "hit", src: "../../Assets/audio/hit.mp3" },
     ];
     var canvas;
     var stage;
     var scoreLabel;
     var livesLabel;
-    var score;
-    var lives;
+    var score = 0;
+    var lives = 5;
     function preload() {
         assets = new createjs.LoadQueue();
         assets.installPlugin(createjs.Sound);
@@ -101,8 +102,8 @@ var game = (function () {
         stage = new createjs.Stage(canvas);
     }
     function setupScoreboard() {
-        score = 0;
-        lives = 5;
+        // score = 0;
+        // lives = 5;
         livesLabel = new createjs.Text("LIVES: " + lives, "40px Consolas", "#ffffff");
         livesLabel.x = config.Screen.WIDTH * 0.1;
         livesLabel.y = (config.Screen.HEIGHT * 0.1) * 0.3;
@@ -123,6 +124,7 @@ var game = (function () {
         setupCanvas();
         //set up scoreboard
         setupScoreboard();
+        //createjs.Sound.play("land");
         //check to see if pointerlock is supported
         havePointerLock = 'pointerLockElement' in document ||
             'mozPointerLockElement' in document ||
@@ -214,11 +216,122 @@ var game = (function () {
         wallRight.name = "RightWall";
         scene.add(wallRight);
         console.log("Added left wall");
+        //obstacle
+        wallGeometry = new BoxGeometry(10, 1, 1);
+        wallMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xe75d14 }), 0.4, 0);
+        obstacle = new Physijs.ConvexMesh(wallGeometry, wallMaterial, 0);
+        obstacle.position.set(0, 1, -10);
+        scene.add(obstacle);
+        console.log("Added obstacle wall");
+        wallGeometry = new BoxGeometry(10, 1, 1);
+        wallMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xe75d14 }), 0.4, 0);
+        obstacle = new Physijs.ConvexMesh(wallGeometry, wallMaterial, 0);
+        obstacle.position.set(-4.5, 1, -20);
+        obstacle.receiveShadow = true;
+        obstacle.name = "Obstacle";
+        scene.add(obstacle);
+        console.log("Added obstacle wall");
+        wallGeometry = new BoxGeometry(10, 1, 1);
+        wallMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xe75d14 }), 0.4, 0);
+        obstacle = new Physijs.ConvexMesh(wallGeometry, wallMaterial, 0);
+        obstacle.position.set(4.5, 1, -35);
+        obstacle.receiveShadow = true;
+        obstacle.name = "Obstacle";
+        scene.add(obstacle);
+        console.log("Added obstacle wall");
+        wallGeometry = new BoxGeometry(10, 1, 1);
+        wallMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xe75d14 }), 0.4, 0);
+        obstacle = new Physijs.ConvexMesh(wallGeometry, wallMaterial, 0);
+        obstacle.position.set(-4.5, 1, -50);
+        obstacle.receiveShadow = true;
+        obstacle.name = "Obstacle";
+        scene.add(obstacle);
+        console.log("Added obstacle wall");
+        wallGeometry = new BoxGeometry(10, 1, 1);
+        wallMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xe75d14 }), 0.4, 0);
+        obstacle = new Physijs.ConvexMesh(wallGeometry, wallMaterial, 0);
+        obstacle.position.set(4.5, 1, -65);
+        obstacle.receiveShadow = true;
+        obstacle.name = "Obstacle";
+        scene.add(obstacle);
+        console.log("Added obstacle wall");
+        wallGeometry = new BoxGeometry(20, 10, 1);
+        wallMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xe75d14 }), 0.4, 0);
+        obstacle = new Physijs.ConvexMesh(wallGeometry, wallMaterial, 0);
+        obstacle.position.set(0, 1, -80);
+        obstacle.receiveShadow = true;
+        obstacle.name = "Obstacle";
+        scene.add(obstacle);
+        console.log("Added obstacle wall");
+        wallGeometry = new BoxGeometry(10, 1, 1);
+        wallMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xe75d14 }), 0.4, 0);
+        obstacle = new Physijs.ConvexMesh(wallGeometry, wallMaterial, 0);
+        obstacle.position.set(-4.5, 1, -95);
+        obstacle.receiveShadow = true;
+        obstacle.name = "Obstacle";
+        scene.add(obstacle);
+        console.log("Added obstacle wall");
+        wallGeometry = new BoxGeometry(10, 1, 1);
+        wallMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xe75d14 }), 0.4, 0);
+        obstacle = new Physijs.ConvexMesh(wallGeometry, wallMaterial, 0);
+        obstacle.position.set(4.5, 1, -120);
+        obstacle.receiveShadow = true;
+        obstacle.name = "Obstacle";
+        scene.add(obstacle);
+        console.log("Added obstacle wall");
+        wallGeometry = new BoxGeometry(10, 1, 1);
+        wallMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xe75d14 }), 0.4, 0);
+        obstacle = new Physijs.ConvexMesh(wallGeometry, wallMaterial, 0);
+        obstacle.position.set(-4.5, 1, -145);
+        obstacle.receiveShadow = true;
+        obstacle.name = "Obstacle";
+        scene.add(obstacle);
+        console.log("Added obstacle wall");
+        wallGeometry = new BoxGeometry(20, 10, 1);
+        wallMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xe75d14 }), 0.4, 0);
+        obstacle = new Physijs.ConvexMesh(wallGeometry, wallMaterial, 0);
+        obstacle.position.set(0, 1, -165);
+        obstacle.receiveShadow = true;
+        obstacle.name = "Obstacle";
+        scene.add(obstacle);
+        console.log("Added obstacle wall");
+        wallGeometry = new BoxGeometry(20, 15, 1);
+        wallMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xe75d14 }), 0.4, 0);
+        obstacle = new Physijs.ConvexMesh(wallGeometry, wallMaterial, 0);
+        obstacle.position.set(0, 1, -175);
+        obstacle.receiveShadow = true;
+        obstacle.name = "Obstacle";
+        scene.add(obstacle);
+        console.log("Added obstacle wall");
+        wallGeometry = new BoxGeometry(20, 20, 1);
+        wallMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xe75d14 }), 0.4, 0);
+        obstacle = new Physijs.ConvexMesh(wallGeometry, wallMaterial, 0);
+        obstacle.position.set(0, 1, -185);
+        obstacle.receiveShadow = true;
+        obstacle.name = "Obstacle";
+        scene.add(obstacle);
+        console.log("Added obstacle wall");
+        wallGeometry = new BoxGeometry(10, 1, 1);
+        wallMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xe75d14 }), 0.4, 0);
+        obstacle = new Physijs.ConvexMesh(wallGeometry, wallMaterial, 0);
+        obstacle.position.set(4.5, 1, -200);
+        obstacle.receiveShadow = true;
+        obstacle.name = "Obstacle";
+        scene.add(obstacle);
+        console.log("Added obstacle wall");
+        wallGeometry = new BoxGeometry(20, 100, 1); //end for now
+        wallMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xe75d14 }), 0.4, 0);
+        obstacle = new Physijs.ConvexMesh(wallGeometry, wallMaterial, 0);
+        obstacle.position.set(0, 1, -185);
+        obstacle.receiveShadow = true;
+        obstacle.name = "Obstacle";
+        scene.add(obstacle);
+        console.log("Added obstacle wall");
         // Player Object
-        playerGeometry = new SphereGeometry(2, 32, 32);
+        playerGeometry = new BoxGeometry(2, 2, 2);
         playerMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0x00ff00 }), 0.4, 0);
         player = new Physijs.SphereMesh(playerGeometry, playerMaterial, 1);
-        player.position.set(0, 10, 10);
+        player.position.set(0, 30, 10);
         player.receiveShadow = true;
         player.castShadow = true;
         player.name = "Player";
@@ -226,13 +339,18 @@ var game = (function () {
         console.log("Added Player to Scene");
         // Collision Check
         player.addEventListener('collision', function (event) {
-            console.log(event);
+            //console.log(event);
             if (event.name === "Ground") {
-                console.log("player hit the ground");
+                //console.log("player hit the ground");
                 isGrounded = true;
             }
             if (event.name === "Sphere") {
                 console.log("player hit the sphere");
+            }
+            if (event.name === "Obstacle") {
+                //console.log("player hit obstacle");
+                createjs.Sound.play("hit");
+                lives -= 1;
             }
         });
         // Add DirectionLine
@@ -245,7 +363,7 @@ var game = (function () {
         console.log("Added DirectionLine to the Player");
         // create parent-child relationship with camera and player
         player.add(camera);
-        camera.position.set(0, 1, 20);
+        camera.position.set(0, 1, 0);
         // Sphere Object
         sphereGeometry = new SphereGeometry(2, 32, 32);
         sphereMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0x00ff00 }), 0.4, 0);
@@ -321,6 +439,7 @@ var game = (function () {
         stats.update();
         checkControls();
         stage.update();
+        livesLabel.text = "LivFUCK: " + lives;
         // render using requestAnimationFrame
         requestAnimationFrame(gameLoop);
         // render the scene
@@ -395,7 +514,7 @@ var game = (function () {
         //camera.lookAt(new Vector3(0, 0, 0));
         console.log("Finished setting up Camera...");
     }
-    window.onload = init;
+    window.onload = preload;
     return {
         scene: scene
     };
