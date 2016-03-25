@@ -22,12 +22,9 @@ var Object3D = THREE.Object3D;
 var SpotLight = THREE.SpotLight;
 var PointLight = THREE.PointLight;
 var AmbientLight = THREE.AmbientLight;
-var Control = objects.Control;
-var GUI = dat.GUI;
 var Color = THREE.Color;
 var Vector3 = THREE.Vector3;
 var Face3 = THREE.Face3;
-var Point = objects.Point;
 var CScreen = config.Screen;
 var Clock = THREE.Clock;
 //Custom Game Objects
@@ -43,8 +40,6 @@ var game = (function () {
     var scene = new Scene(); // Instantiate Scene Object
     var renderer;
     var camera;
-    var control;
-    var gui;
     var stats;
     var blocker;
     var instructions;
@@ -381,10 +376,6 @@ var game = (function () {
         sphere.name = "Sphere";
         //scene.add(sphere);
         //console.log("Added Sphere to Scene");
-        // add controls
-        gui = new GUI();
-        control = new Control();
-        addControl(control);
         // Add framerate stats
         addStatsObject();
         console.log("Added Stats to scene...");
@@ -428,9 +419,6 @@ var game = (function () {
         scoreLabel.y = (config.Screen.HEIGHT * 0.1) * 0.3;
         canvas.style.width = '100%';
         stage.update();
-    }
-    function addControl(controlObject) {
-        /* ENTER CODE for the GUI CONTROL HERE */
     }
     // Add Frame Rate Stats to the Scene
     function addStatsObject() {
