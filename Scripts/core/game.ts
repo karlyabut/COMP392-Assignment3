@@ -80,6 +80,7 @@ var game = (() => {
     var wallRight: Physijs.Mesh;
     var obstacle: Physijs.Mesh;
 
+
     // assets: lives, score, canvas, and stage
     var assets: createjs.LoadQueue;
     var manifest = [
@@ -87,14 +88,14 @@ var game = (() => {
         { id: "land", src: "../../Assets/audio/Land.wav" },
         { id: "hit", src: "../../Assets/audio/hit.mp3" },
         { id: "gameover", src: "../../Assets/audio/gameover.mp3" },
-        
+
     ];
     var canvas: HTMLElement;
     var stage: createjs.Stage;
     var scoreLabel: createjs.Text;
     var livesLabel: createjs.Text;
     var score: number = 0;
-    var lives: number = 5;
+    var lives: number = 500;
 
     function preload(): void {
         assets = new createjs.LoadQueue();
@@ -212,12 +213,12 @@ var game = (() => {
         console.log("Added spotLight to scene");
 
         // Ground Object
-        groundTexture = new THREE.TextureLoader().load('../../Assets/images/GravelCobble.jpg');
+        groundTexture = new THREE.TextureLoader().load('../../Assets/images/space.png');
         groundTexture.wrapS = THREE.RepeatWrapping;
         groundTexture.wrapT = THREE.RepeatWrapping;
         groundTexture.repeat.set(8, 8);
 
-        groundTextureNormal = new THREE.TextureLoader().load('../../Assets/images/GravelCobbleNormal.png');
+        groundTextureNormal = new THREE.TextureLoader().load('../../Assets/images/space.png');
         groundTextureNormal.wrapS = THREE.RepeatWrapping;
         groundTextureNormal.wrapT = THREE.RepeatWrapping;
         groundTextureNormal.repeat.set(8, 8);
@@ -254,52 +255,171 @@ var game = (() => {
         scene.add(wallRight);
         console.log("Added left wall");
 
+
+        //meteor
+        sphereGeometry = new SphereGeometry(1, 8, 8);
+        sphereMaterial = Physijs.createMaterial(new LambertMaterial({ map: THREE.ImageUtils.loadTexture('../../Assets/images/meteor.png') }));
+        sphere = new Physijs.SphereMesh(sphereGeometry, sphereMaterial, 1);
+        sphere.position.set(0, 80, -25);
+        sphere.receiveShadow = true;
+        sphere.castShadow = true;
+        sphere.name = "Meteor";
+        scene.add(sphere);
+
+        sphereGeometry = new SphereGeometry(1, 8, 8);
+        sphereMaterial = Physijs.createMaterial(new LambertMaterial({ map: THREE.ImageUtils.loadTexture('../../Assets/images/meteor.png') }));
+        sphere = new Physijs.SphereMesh(sphereGeometry, sphereMaterial, 1);
+        sphere.position.set(7, 150, -35);
+        sphere.receiveShadow = true;
+        sphere.castShadow = true;
+        sphere.name = "Meteor";
+        scene.add(sphere);
+
+        sphereGeometry = new SphereGeometry(1, 8, 8);
+        sphereMaterial = Physijs.createMaterial(new LambertMaterial({ map: THREE.ImageUtils.loadTexture('../../Assets/images/meteor.png') }));
+        sphere = new Physijs.SphereMesh(sphereGeometry, sphereMaterial, 1);
+        sphere.position.set(-7, 200, -50);
+        sphere.receiveShadow = true;
+        sphere.castShadow = true;
+        sphere.name = "Meteor";
+        scene.add(sphere);
+
+        sphereGeometry = new SphereGeometry(1, 8, 8);
+        sphereMaterial = Physijs.createMaterial(new LambertMaterial({ map: THREE.ImageUtils.loadTexture('../../Assets/images/meteor.png') }));
+        sphere = new Physijs.SphereMesh(sphereGeometry, sphereMaterial, 1);
+        sphere.position.set(4, 250, -65);
+        sphere.receiveShadow = true;
+        sphere.castShadow = true;
+        sphere.name = "Meteor";
+        scene.add(sphere);
+
+        sphereGeometry = new SphereGeometry(1, 8, 8);
+        sphereMaterial = Physijs.createMaterial(new LambertMaterial({ map: THREE.ImageUtils.loadTexture('../../Assets/images/meteor.png') }));
+        sphere = new Physijs.SphereMesh(sphereGeometry, sphereMaterial, 1);
+        sphere.position.set(-4, 275, -80);
+        sphere.receiveShadow = true;
+        sphere.castShadow = true;
+        sphere.name = "Meteor";
+        scene.add(sphere);
+
+        sphereGeometry = new SphereGeometry(1, 8, 8);
+        sphereMaterial = Physijs.createMaterial(new LambertMaterial({ map: THREE.ImageUtils.loadTexture('../../Assets/images/meteor.png') }));
+        sphere = new Physijs.SphereMesh(sphereGeometry, sphereMaterial, 1);
+        sphere.position.set(0, 300, -95);
+        sphere.receiveShadow = true;
+        sphere.castShadow = true;
+        sphere.name = "Meteor";
+        scene.add(sphere);
+
+        sphereGeometry = new SphereGeometry(1, 8, 8);
+        sphereMaterial = Physijs.createMaterial(new LambertMaterial({ map: THREE.ImageUtils.loadTexture('../../Assets/images/meteor.png') }));
+        sphere = new Physijs.SphereMesh(sphereGeometry, sphereMaterial, 1);
+        sphere.position.set(-7, 300, -95);
+        sphere.receiveShadow = true;
+        sphere.castShadow = true;
+        sphere.name = "Meteor";
+        scene.add(sphere);
+
+        sphereGeometry = new SphereGeometry(1, 8, 8);
+        sphereMaterial = Physijs.createMaterial(new LambertMaterial({ map: THREE.ImageUtils.loadTexture('../../Assets/images/meteor.png') }));
+        sphere = new Physijs.SphereMesh(sphereGeometry, sphereMaterial, 1);
+        sphere.position.set(7, 300, -95);
+        sphere.receiveShadow = true;
+        sphere.castShadow = true;
+        sphere.name = "Meteor";
+        scene.add(sphere);
+
+        sphereGeometry = new SphereGeometry(1, 64, 64);
+        sphereMaterial = Physijs.createMaterial(new LambertMaterial({ map: THREE.ImageUtils.loadTexture('../../Assets/images/meteor.png') }));
+        sphere = new Physijs.SphereMesh(sphereGeometry, sphereMaterial, 1);
+        sphere.position.set(0, 300, -185);
+        sphere.receiveShadow = true;
+        sphere.castShadow = true;
+        sphere.name = "Meteor";
+        scene.add(sphere);
+
+        sphereGeometry = new SphereGeometry(1, 64, 64);
+        sphereMaterial = Physijs.createMaterial(new LambertMaterial({ map: THREE.ImageUtils.loadTexture('../../Assets/images/meteor.png') }));
+        sphere = new Physijs.SphereMesh(sphereGeometry, sphereMaterial, 1);
+        sphere.position.set(0, 300, -185);
+        sphere.receiveShadow = true;
+        sphere.castShadow = true;
+        sphere.name = "Meteor";
+        scene.add(sphere);
+
+        sphereGeometry = new SphereGeometry(1, 32, 32);
+        sphereMaterial = Physijs.createMaterial(new LambertMaterial({ map: THREE.ImageUtils.loadTexture('../../Assets/images/meteor.png') }));
+        sphere = new Physijs.SphereMesh(sphereGeometry, sphereMaterial, 1);
+        sphere.position.set(0, 300, -195);
+        sphere.receiveShadow = true;
+        sphere.castShadow = true;
+        sphere.name = "Meteor";
+        scene.add(sphere);
+
+        sphereGeometry = new SphereGeometry(1, 64, 64);
+        sphereMaterial = Physijs.createMaterial(new LambertMaterial({ map: THREE.ImageUtils.loadTexture('../../Assets/images/meteor.png') }));
+        sphere = new Physijs.SphereMesh(sphereGeometry, sphereMaterial, 1);
+        sphere.position.set(0, 300, -200);
+        sphere.receiveShadow = true;
+        sphere.castShadow = true;
+        sphere.name = "Meteor";
+        scene.add(sphere);
+
+        sphereGeometry = new SphereGeometry(1, 32, 32);
+        sphereMaterial = Physijs.createMaterial(new LambertMaterial({ map: THREE.ImageUtils.loadTexture('../../Assets/images/meteor.png') }));
+        sphere = new Physijs.SphereMesh(sphereGeometry, sphereMaterial, 1);
+        sphere.position.set(0, 300, -200);
+        sphere.receiveShadow = true;
+        sphere.castShadow = true;
+        sphere.name = "Meteor";
+        scene.add(sphere);
+
         //obstacle
-        wallGeometry = new BoxGeometry(10, 1, 1);
-        wallMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xe75d14 }), 0.4, 0);
-        obstacle = new Physijs.ConvexMesh(wallGeometry, wallMaterial, 0);
-        obstacle.position.set(0, 1, -10);
-        scene.add(obstacle);
-        console.log("Added obstacle wall");
+        // wallGeometry = new BoxGeometry(10, 1, 1);
+        // wallMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xe75d14 }), 0.4, 0);
+        // obstacle = new Physijs.ConvexMesh(wallGeometry, wallMaterial, 0);
+        // obstacle.position.set(0, 1, -10);
+        // scene.add(obstacle);
+        // console.log("Added obstacle wall");
 
-        wallGeometry = new BoxGeometry(10, 1, 1);
-        wallMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xe75d14 }), 0.4, 0);
+        wallGeometry = new BoxGeometry(20, 1, 1);
+        wallMaterial = Physijs.createMaterial(new LambertMaterial({ map: THREE.ImageUtils.loadTexture('../../Assets/images/blackhole.png') }));
         obstacle = new Physijs.ConvexMesh(wallGeometry, wallMaterial, 0);
-        obstacle.position.set(-4.5, 1, -20);
+        obstacle.position.set(0, 1, -20);
         obstacle.receiveShadow = true;
         obstacle.name = "Obstacle";
         scene.add(obstacle);
         console.log("Added obstacle wall");
 
-        wallGeometry = new BoxGeometry(10, 1, 1);
-        wallMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xe75d14 }), 0.4, 0);
+        wallGeometry = new BoxGeometry(20, 1, 1);
+        wallMaterial = Physijs.createMaterial(new LambertMaterial({ map: THREE.ImageUtils.loadTexture('../../Assets/images/blackhole.png') }));
         obstacle = new Physijs.ConvexMesh(wallGeometry, wallMaterial, 0);
-        obstacle.position.set(4.5, 1, -35);
+        obstacle.position.set(0, 1, -35);
         obstacle.receiveShadow = true;
         obstacle.name = "Obstacle";
         scene.add(obstacle);
         console.log("Added obstacle wall");
 
-        wallGeometry = new BoxGeometry(10, 1, 1);
-        wallMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xe75d14 }), 0.4, 0);
+        wallGeometry = new BoxGeometry(20, 1, 1);
+        wallMaterial = Physijs.createMaterial(new LambertMaterial({ map: THREE.ImageUtils.loadTexture('../../Assets/images/blackhole.png') }));
         obstacle = new Physijs.ConvexMesh(wallGeometry, wallMaterial, 0);
-        obstacle.position.set(-4.5, 1, -50);
+        obstacle.position.set(0, 1, -50);
         obstacle.receiveShadow = true;
         obstacle.name = "Obstacle";
         scene.add(obstacle);
         console.log("Added obstacle wall");
 
-        wallGeometry = new BoxGeometry(10, 1, 1);
-        wallMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xe75d14 }), 0.4, 0);
+        wallGeometry = new BoxGeometry(20, 1, 1);
+        wallMaterial = Physijs.createMaterial(new LambertMaterial({ map: THREE.ImageUtils.loadTexture('../../Assets/images/blackhole.png') }));
         obstacle = new Physijs.ConvexMesh(wallGeometry, wallMaterial, 0);
-        obstacle.position.set(4.5, 1, -65);
+        obstacle.position.set(0, 1, -65);
         obstacle.receiveShadow = true;
         obstacle.name = "Obstacle";
         scene.add(obstacle);
         console.log("Added obstacle wall");
 
-        wallGeometry = new BoxGeometry(20, 10, 1);
-        wallMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xe75d14 }), 0.4, 0);
+        wallGeometry = new BoxGeometry(20, 1, 1);
+        wallMaterial = Physijs.createMaterial(new LambertMaterial({ map: THREE.ImageUtils.loadTexture('../../Assets/images/blackhole.png') }));
         obstacle = new Physijs.ConvexMesh(wallGeometry, wallMaterial, 0);
         obstacle.position.set(0, 1, -80);
         obstacle.receiveShadow = true;
@@ -307,35 +427,35 @@ var game = (() => {
         scene.add(obstacle);
         console.log("Added obstacle wall");
 
-        wallGeometry = new BoxGeometry(10, 1, 1);
-        wallMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xe75d14 }), 0.4, 0);
+        wallGeometry = new BoxGeometry(20, 1, 1);
+        wallMaterial = Physijs.createMaterial(new LambertMaterial({ map: THREE.ImageUtils.loadTexture('../../Assets/images/blackhole.png') }));
         obstacle = new Physijs.ConvexMesh(wallGeometry, wallMaterial, 0);
-        obstacle.position.set(-4.5, 1, -95);
+        obstacle.position.set(0, 1, -95);
         obstacle.receiveShadow = true;
         obstacle.name = "Obstacle";
         scene.add(obstacle);
         console.log("Added obstacle wall");
 
-        wallGeometry = new BoxGeometry(10, 1, 1);
-        wallMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xe75d14 }), 0.4, 0);
+        wallGeometry = new BoxGeometry(20, 1, 1);
+        wallMaterial = Physijs.createMaterial(new LambertMaterial({ map: THREE.ImageUtils.loadTexture('../../Assets/images/blackhole.png') }));
         obstacle = new Physijs.ConvexMesh(wallGeometry, wallMaterial, 0);
-        obstacle.position.set(4.5, 1, -120);
+        obstacle.position.set(0, 1, -120);
         obstacle.receiveShadow = true;
         obstacle.name = "Obstacle";
         scene.add(obstacle);
         console.log("Added obstacle wall");
 
-        wallGeometry = new BoxGeometry(10, 1, 1);
-        wallMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xe75d14 }), 0.4, 0);
+        wallGeometry = new BoxGeometry(20, 1, 1);
+        wallMaterial = Physijs.createMaterial(new LambertMaterial({ map: THREE.ImageUtils.loadTexture('../../Assets/images/blackhole.png') }));
         obstacle = new Physijs.ConvexMesh(wallGeometry, wallMaterial, 0);
-        obstacle.position.set(-4.5, 1, -145);
+        obstacle.position.set(0, 1, -145);
         obstacle.receiveShadow = true;
         obstacle.name = "Obstacle";
         scene.add(obstacle);
         console.log("Added obstacle wall");
 
-        wallGeometry = new BoxGeometry(20, 10, 1);
-        wallMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xe75d14 }), 0.4, 0);
+        wallGeometry = new BoxGeometry(20, 1, 1);
+        wallMaterial = Physijs.createMaterial(new LambertMaterial({ map: THREE.ImageUtils.loadTexture('../../Assets/images/blackhole.png') }));
         obstacle = new Physijs.ConvexMesh(wallGeometry, wallMaterial, 0);
         obstacle.position.set(0, 1, -165);
         obstacle.receiveShadow = true;
@@ -343,8 +463,8 @@ var game = (() => {
         scene.add(obstacle);
         console.log("Added obstacle wall");
 
-        wallGeometry = new BoxGeometry(20, 15, 1);
-        wallMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xe75d14 }), 0.4, 0);
+        wallGeometry = new BoxGeometry(20, 1, 1);
+        wallMaterial = Physijs.createMaterial(new LambertMaterial({ map: THREE.ImageUtils.loadTexture('../../Assets/images/blackhole.png') }));
         obstacle = new Physijs.ConvexMesh(wallGeometry, wallMaterial, 0);
         obstacle.position.set(0, 1, -175);
         obstacle.receiveShadow = true;
@@ -352,8 +472,8 @@ var game = (() => {
         scene.add(obstacle);
         console.log("Added obstacle wall");
 
-        wallGeometry = new BoxGeometry(20, 20, 1);
-        wallMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xe75d14 }), 0.4, 0);
+        wallGeometry = new BoxGeometry(20, 1, 1);
+        wallMaterial = Physijs.createMaterial(new LambertMaterial({ map: THREE.ImageUtils.loadTexture('../../Assets/images/blackhole.png') }));
         obstacle = new Physijs.ConvexMesh(wallGeometry, wallMaterial, 0);
         obstacle.position.set(0, 1, -185);
         obstacle.receiveShadow = true;
@@ -361,17 +481,17 @@ var game = (() => {
         scene.add(obstacle);
         console.log("Added obstacle wall");
 
-        wallGeometry = new BoxGeometry(10, 1, 1);
-        wallMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xe75d14 }), 0.4, 0);
+        wallGeometry = new BoxGeometry(20, 1, 1);
+        wallMaterial = Physijs.createMaterial(new LambertMaterial({ map: THREE.ImageUtils.loadTexture('../../Assets/images/blackhole.png') }));
         obstacle = new Physijs.ConvexMesh(wallGeometry, wallMaterial, 0);
-        obstacle.position.set(4.5, 1, -200);
+        obstacle.position.set(0, 1, -200);
         obstacle.receiveShadow = true;
         obstacle.name = "Obstacle";
         scene.add(obstacle);
         console.log("Added obstacle wall");
 
         wallGeometry = new BoxGeometry(20, 100, 1); //end for now
-        wallMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xe75d14 }), 0.4, 0);
+        wallMaterial = Physijs.createMaterial(new LambertMaterial({ map: THREE.ImageUtils.loadTexture('../../Assets/images/blackhole.png') }));
         obstacle = new Physijs.ConvexMesh(wallGeometry, wallMaterial, 0);
         obstacle.position.set(0, 1, -185);
         obstacle.receiveShadow = true;
@@ -399,7 +519,7 @@ var game = (() => {
             if (eventObject.name === "Ground") {
                 //console.log("player hit the ground");
                 isGrounded = true;
-                createjs.Sound.play("land");
+                
             }
 
             if (eventObject.name === "Obstacle") {
@@ -409,9 +529,14 @@ var game = (() => {
                 if (lives > 0) {
                     lives -= 1;
                 }
-                if(lives == 0){
+                if (lives == 0) {
                     createjs.Sound.play("gameover");
                 }
+            }
+
+            if (eventObject.name === "Meteor") {
+                score += 100;
+                scene.remove(eventObject);
             }
         });
 
@@ -427,18 +552,6 @@ var game = (() => {
         // create parent-child relationship with camera and player
         player.add(camera);
         camera.position.set(0, 1, 0);
-
-
-        // Sphere Object
-        sphereGeometry = new SphereGeometry(2, 32, 32);
-        sphereMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0x00ff00 }), 0.4, 0);
-        sphere = new Physijs.SphereMesh(sphereGeometry, sphereMaterial, 1);
-        sphere.position.set(0, 60, 5);
-        sphere.receiveShadow = true;
-        sphere.castShadow = true;
-        sphere.name = "Sphere";
-        //scene.add(sphere);
-        //console.log("Added Sphere to Scene");
 
 
         // Add framerate stats
@@ -511,7 +624,8 @@ var game = (() => {
         checkControls();
         stage.update();
 
-        livesLabel.text = "LivFUCK: " + lives;
+        livesLabel.text = "Lives: " + lives;
+        scoreLabel.text = "Score: " + score;
 
 
 
