@@ -79,8 +79,10 @@ var game = (function () {
     // assets: lives, score, canvas, and stage
     var assets;
     var manifest = [
-        { id: "land", src: "../../Assets/audio/music.mp3" },
+        { id: "music", src: "../../Assets/audio/music.mp3" },
+        { id: "land", src: "../../Assets/audio/Land.wav" },
         { id: "hit", src: "../../Assets/audio/hit.mp3" },
+        { id: "gameover", src: "../../Assets/audio/gameover.mp3" },
     ];
     var canvas;
     var stage;
@@ -125,7 +127,7 @@ var game = (function () {
         //set up scoreboard
         setupScoreboard();
         //background sound
-        createjs.Sound.play("land");
+        //createjs.Sound.play("music");
         //check to see if pointerlock is supported
         havePointerLock = 'pointerLockElement' in document ||
             'mozPointerLockElement' in document ||
@@ -339,19 +341,23 @@ var game = (function () {
         scene.add(player);
         console.log("Added Player to Scene");
         // Collision Check
-        player.addEventListener('collision', function (event) {
+        player.addEventListener('collision', function (eventObject) {
             //console.log(event);
-            if (event.name === "Ground") {
+            if (eventObject.name === "Ground") {
                 //console.log("player hit the ground");
                 isGrounded = true;
+                createjs.Sound.play("land");
             }
-            if (event.name === "Sphere") {
-                console.log("player hit the sphere");
-            }
-            if (event.name === "Obstacle") {
+            if (eventObject.name === "Obstacle") {
                 //console.log("player hit obstacle");
                 createjs.Sound.play("hit");
-                lives -= 1;
+                //scene.remove(eventObject);
+                if (lives > 0) {
+                    lives -= 1;
+                }
+                if (lives == 0) {
+                    createjs.Sound.play("gameover");
+                }
             }
         });
         // Add DirectionLine
